@@ -84,7 +84,7 @@ public class MyThreadPool<Work extends Runnable> implements Executor<Work> {
                 if (shutDown) {
                     Thread.interrupted();
                 }
-                Runnable task;
+                Work task;
                 try {
                     task = getTask();
                     task.run();
@@ -94,7 +94,7 @@ public class MyThreadPool<Work extends Runnable> implements Executor<Work> {
             }
         }
 
-        public Runnable getTask() throws InterruptedException {
+        public Work getTask() throws InterruptedException {
             return queue.take();
         }
 
