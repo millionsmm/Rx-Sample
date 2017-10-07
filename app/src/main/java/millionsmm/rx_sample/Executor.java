@@ -10,9 +10,9 @@ public interface Executor<Work extends Runnable> {
 
     void shutdown();
 
-    void addWorks(Runnable runnable);
+    void addWorks(Work work);
 
     void removeWorks(int num);
 
-    void getWorkSize();
+    int getWorkSize();
 }
