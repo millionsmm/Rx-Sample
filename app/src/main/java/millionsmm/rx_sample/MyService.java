@@ -2,30 +2,56 @@ package millionsmm.rx_sample;
 
 import android.app.Service;
 import android.content.Intent;
+import android.os.Binder;
 import android.os.IBinder;
 
 public class MyService extends Service {
+    public static final int MAX_PROGRESS = 100;
+    private int progress = 0;
+    private OnProgressListener onProgressListener;
+
     public MyService() {
+    }
+
+    public int getProgress() {
+        return progress;
+    }
+
+    public void startDownload() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (progress < MAX_PROGRESS) {
+                    progress += 5;
+                    if (onProgressListener != null) {
+                        onProgressListener.onProgress(progress);
+                    }
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }).start();
     }
 
     @Override
     public IBinder onBind(Intent intent) {
-        return null;
+        return new MyBinder();
     }
 
-    @Override
-    public void onCreate() {
-        super.onCreate();
-
+    public void setOnProgressListener(OnProgressListener onProgressListener) {
+        this.onProgressListener = onProgressListener;
     }
 
-    @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
-        return START_STICKY;//a sticky service maybe a keep-alive way.
+    public interface OnProgressListener {
+        void onProgress(int progress);
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
+    public class MyBinder extends Binder {
+        public MyService getService() {
+            return MyService.this;
+        }
     }
 }
