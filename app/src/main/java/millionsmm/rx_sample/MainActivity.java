@@ -21,6 +21,16 @@ public class MainActivity extends AppCompatActivity {
 
     private final CompositeDisposable disposable = new CompositeDisposable();
 
+    static Observable<String> sampleObservable() {
+        return Observable.defer(new Callable<ObservableSource<? extends String>>() {
+            @Override
+            public ObservableSource<? extends String> call() throws Exception {
+                SystemClock.sleep(5000);
+                return Observable.just("one", "two", "three", "four", "five");
+            }
+        });
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
                 sampleButtonClick();
             }
         });
+//        this.startService(new Intent(this, MyService.class));
     }
 
     void sampleButtonClick() {
@@ -59,15 +70,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         disposable.clear();
-    }
-
-    static Observable<String> sampleObservable() {
-        return Observable.defer(new Callable<ObservableSource<? extends String>>() {
-            @Override
-            public ObservableSource<? extends String> call() throws Exception {
-                SystemClock.sleep(5000);
-                return Observable.just("one", "two", "three", "four", "five");
-            }
-        });
+//        this.stopService(new Intent(this, MyService.class));
     }
 }
