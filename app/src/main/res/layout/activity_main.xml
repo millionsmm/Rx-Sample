@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="millionsmm.rx_sample.MainActivity">
+    tools:context="millionsmm.rx_sample.rx.MainActivity">
 
     <Button
         android:id="@+id/bt_test"

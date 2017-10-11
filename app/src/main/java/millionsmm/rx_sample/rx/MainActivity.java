@@ -1,4 +1,4 @@
-package millionsmm.rx_sample;
+package millionsmm.rx_sample.rx;
 
 import android.os.Bundle;
 import android.os.SystemClock;
@@ -15,6 +15,7 @@ import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
+import millionsmm.rx_sample.R;
 
 public class MainActivity extends AppCompatActivity {
     private final String TAG = "MainActivity";
